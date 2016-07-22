@@ -1,0 +1,160 @@
+#### List in R
+
+### A list is a generic vector containing other objects.
+
+### For example, the following variable x is a list containing copies of three vectors n, s, b, 
+### and a numeric value 3.
+
+> n = c(2, 3, 5) 
+> s = c("aa", "bb", "cc", "dd", "ee") 
+> b = c(TRUE, FALSE, TRUE, FALSE, FALSE) 
+> x = list(n, s, b, 3)   # x contains copies of n, s, b
+
+###List Slicing
+## We retrieve a list slice with the single square bracket "[]" operator. 
+### The following is a slice containing the second member of x, which is a copy of s.
+
+> x[2] 
+[[1]] 
+[1] "aa" "bb" "cc" "dd" "ee"
+
+### With an index vector, we can retrieve a slice with multiple members.
+### Here a slice containing the second and fourth members of x.
+
+> x[c(2, 4)] 
+[[1]] 
+[1] "aa" "bb" "cc" "dd" "ee" 
+ 
+[[2]] 
+[1] 3
+
+### Member Reference
+### In order to reference a list member directly, we have to use the double square bracket "[[]]" operator. 
+### The following object x[[2]] is the second member of x. In other words, x[[2]] is a copy of s, 
+### but is not a slice containing s or its copy.
+
+> x[[2]] 
+[1] "aa" "bb" "cc" "dd" "ee"
+
+### We can modify its content directly.
+
+> x[[2]][1] = "ta" 
+> x[[2]] 
+[1] "ta" "bb" "cc" "dd" "ee" 
+> s 
+[1] "aa" "bb" "cc" "dd" "ee"   # s is unaffected
+
+
+#### Named List Members
+
+### We can assign names to list members, and reference them by names instead of numeric indexes.
+
+### For example, in the following, v is a list of two members, named "bob" and "john".
+
+> v = list(bob=c(2, 3, 5), john=c("aa", "bb")) 
+> v 
+$bob 
+[1] 2 3 5 
+ 
+$john 
+[1] "aa" "bb"
+
+## List Slicing
+## We retrieve a list slice with the single square bracket "[]" operator. 
+### Here is a list slice containing a member of v named "bob".
+
+> v["bob"] 
+$bob 
+[1] 2 3 5
+
+### With an index vector, we can retrieve a slice with multiple members. 
+### Here is a list slice with both members of v. Notice how they are reversed from
+### their original positions in v.
+
+> v[c("john", "bob")] 
+$john 
+[1] "aa" "bb" 
+ 
+$bob 
+[1] 2 3 5
+
+### Member Reference
+### In order to reference a list member directly, we have to use the double square bracket "[[]]" operator.
+### The following references a member of v by name.
+
+> v[["bob"]] 
+[1] 2 3 5
+
+
+### A named list member can also be referenced directly with the "$" operator in lieu of the
+## double square bracket operator.
+
+> v$bob 
+[1] 2 3 5
+
+### Search Path Attachment
+### We can attach a list to the R search path and access its members without explicitly mentioning the
+## list. It should to be detached for cleanup.
+
+> attach(v) 
+> bob 
+[1] 2 3 5 
+> detach(v)
+
+#### CHAPTER 6 DATA FRAMES IN R
+
+## Data Frame
+
+### A data frame is used for storing data tables. It is a list of vectors of equal length.
+###  For example, the following variable df is a data frame containing three vectors n, s, b.
+
+> n = c(2, 3, 5) 
+> s = c("aa", "bb", "cc") 
+> b = c(TRUE, FALSE, TRUE) 
+> df = data.frame(n, s, b)       # df is a data frame
+
+###Build-in Data Frame
+## We use built-in data frames in R . For example, here is a built-in data frame in R,
+## called mtcars.
+
+> mtcars 
+               mpg cyl disp  hp drat   wt ... 
+Mazda RX4     21.0   6  160 110 3.90 2.62 ... 
+Mazda RX4 Wag 21.0   6  160 110 3.90 2.88 ... 
+Datsun 710    22.8   4  108  93 3.85 2.32 ... 
+               ............
+### The top line of the table, called the header, contains the column names. 
+### Each horizontal line afterward denotes a data row, which begins with the name of the row, 
+### and then followed by the actual data. Each data member of a row is called a cell.
+
+### To retrieve data in a cell, we would enter its row and column coordinates in the single square 
+### bracket "[]" operator. The two coordinates are separated by a comma. In other words,
+## the coordinates begins with row position, then followed by a comma, 
+#and ends with the column position. The order is important.
+
+# Here is the cell value from the first row, second column of mtcars.
+
+> mtcars[1, 2] 
+[1] 6
+Moreover, we can use the row and column names instead of the numeric coordinates.
+
+> mtcars["Mazda RX4", "cyl"] 
+[1] 6
+Lastly, the number of data rows in the data frame is given by the nrow function.
+
+> nrow(mtcars)    # number of data rows 
+[1] 32
+And the number of columns of a data frame is given by the ncol function.
+
+> ncol(mtcars)    # number of columns 
+[1] 11
+Further details of the mtcars data set is available in the R documentation.
+
+> help(mtcars)
+Preview
+Instead of printing out the entire data frame, it is often desirable to preview it with the head function beforehand.
+
+> head(mtcars) 
+               mpg cyl disp  hp drat   wt ... 
+Mazda RX4     21.0   6  160 110 3.90 2.62 ... 
+               ............

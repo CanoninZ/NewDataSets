@@ -1,0 +1,456 @@
+
+## First code in R summation of two numbers
+> 1 + 2 
+[1] 3
+
+### Variable assignment
+
+> x = 1 
+>x<-1
+> x 
+[1] 1
+
+### Combine function
+
+> c(1, 2, 3) 
+[1] 1 2 3
+
+###Comments
+##All text after the pound sign "#" within the same line is considered a comment.
+
+> 1 + 1      # this is a comment 
+[1] 2
+
+### Installing extension packages
+#Extension Package
+#Sometimes we need additional functionality beyond those offered by the core R library. 
+#In order to install an extension package, you should invoke the install.packages function at the
+# prompt and follow the instruction.
+
+> install.packages()
+
+
+###Basic Data Types in R
+
+#Numeric
+#Integer
+#Complex
+#Logical
+#Character
+
+####
+#Numeric
+
+# Decimal values are called numerics in R.
+# It is the default computational data type. If we assign a decimal value to a variable x as follows,
+# x will be of numeric type.
+
+> x = 10.5       # assign a decimal value 
+> x              # print the value of x 
+[1] 10.5 
+> class(x)       # print the class name of x
+
+[1] "numeric"
+
+# Furthermore, even if we assign an integer to a variable k, it is still being saved as a numeric value.
+
+> k = 1 
+> k              # print the value of k 
+[1] 1 
+> class(k)       # print the class name of k 
+[1] "numeric" 
+[1] "numeric"
+
+###The fact that k is not an integer can be confirmed with the is.integer function. 
+##We will discuss how to create an integer in our next tutorial on the integer type.
+
+> is.integer(k)  # is k an integer? 
+[1] FALSE
+
+#########
+
+#### Integer in R
+
+###In order to create an integer variable in R, 
+# we invoke the as.integer function. We can be assured that y is indeed an integer 
+###by applying the is.integer function.
+
+> y = as.integer(3) 
+> y              # print the value of y 
+[1] 3 
+
+
+> class(y)       # print the class name of y 
+[1] "integer" 
+> is.integer(y)  # is y an integer? 
+[1] TRUE
+
+###Incidentally, we can coerce a numeric value into an integer with the same as.integer function.
+
+> as.integer(3.14)    # coerce a numeric value 
+[1] 3
+
+###And we can parse a string for decimal values in much the same way.
+
+> as.integer("5.27")  # coerce a decimal string 
+[1] 5
+### On the other hand, it is erroneous trying to parse a non-decimal string.
+
+> as.integer("Joe")   # coerce an non-decimal string 
+[1] NA 
+Warning message: 
+NAs introduced by coercion
+
+####Often, it is useful to perform arithmetic on logical values. 
+####Like the C language, TRUE has the value 1, while FALSE has value 0.
+
+> as.integer(TRUE)    # the numeric value of TRUE 
+[1] 1 
+> as.integer(FALSE)   # the numeric value of FALSE 
+[1] 0
+
+####
+
+### Complex data types in R
+
+
+
+### A complex value in R is defined via the pure imaginary value i.
+
+> z = 1 + 2i     # create a complex number 
+> z              # print the value of z 
+[1] 1+2i 
+> class(z)       # print the class name of z 
+[1] "complex"
+### The following gives an error as -1 is not a complex value.
+
+> sqrt(-1)       # square root of -1 
+[1] NaN 
+Warning message: 
+In sqrt(-1) : NaNs produced
+
+####  Instead, we have to use the complex value -1 + 0i.
+
+> sqrt(-1+0i)    # square root of -1+0i 
+[1] 0+1i
+### An alternative is to coerce -1 into a complex value.
+
+> sqrt(as.complex(-1)) 
+[1] 0+1i
+
+
+####### Logical Data Types in R
+
+## A logical value is often created via comparison between variables.
+
+> x = 1; y = 2   # sample values 
+> z = x > y      # is x larger than y? 
+> z              # print the logical value 
+[1] FALSE 
+> class(z)       # print the class name of z 
+[1] "logical"
+### Standard logical operations are "&" (and), "|" (or), and "!" (negation).
+
+> u = TRUE; v = FALSE 
+> u & v          # u AND v 
+[1] FALSE 
+> u | v          # u OR v 
+[1] TRUE 
+> !u             # negation of u 
+[1] FALSE
+
+
+#### Character data types in R
+
+
+
+# A character object is used to represent string values in R.
+#  We convert objects into character values with the as.character() function:
+
+> x = as.character(3.14) 
+> x              # print the character string 
+[1] "3.14" 
+> class(x)       # print the class name of x 
+[1] "character"
+
+## Two character values can be concatenated with the paste function.
+
+> fname = "Joe"; lname ="Smith" 
+> paste(fname, lname) 
+[1] "Joe Smith"
+
+# However, it is often more convenient to create a readable string with the sprintf function,
+## which has a C language syntax.
+
+> sprintf("%s has %d dollars", "Sam", 100) 
+[1] "Sam has 100 dollars"
+
+### To extract a substring, we apply the substr function. Here is an example showing how to extract 
+### the substring between the third and twelfth positions in a string.
+
+> substr("Mary has a little lamb.", start=3, stop=12) 
+[1] "ry has a l"
+
+### And to replace the first occurrence of the word "little" by another word "big" in the string,
+### we apply the sub function.
+
+> sub("little", "big", "Mary has a little lamb.") 
+[1] "Mary has a big lamb."
+
+## More functions for string manipulation can be found in the R documentation.
+
+> help("sub")
+
+
+#### BASIC DATATYPES FINISHED
+
+### CHAPTER 2 VECTORS IN R
+
+###A vector is a sequence of data elements of the same basic type. 
+### Members in a vector are officially called components. 
+
+
+### Here is a vector containing three numeric values 2, 3 and 5.
+
+> c(2, 3, 5) 
+[1] 2 3 5
+
+
+### And here is a vector of logical values.
+
+> c(TRUE, FALSE, TRUE, FALSE, FALSE) 
+[1]  TRUE FALSE  TRUE FALSE FALSE
+
+### A vector can contain character strings.
+
+> c("aa", "bb", "cc", "dd", "ee") 
+[1] "aa" "bb" "cc" "dd" "ee"
+## Incidentally, the number of members in a vector is given by the length function.
+
+> length(c("aa", "bb", "cc", "dd", "ee")) 
+[1] 5
+
+
+### Combining Vectors
+
+###  Vectors can be combined via the function c. 
+### For examples, the following two vectors n and s are combined into a new vector 
+### containing elements from both vectors.
+
+> n = c(2, 3, 5) 
+> s = c("aa", "bb", "cc", "dd", "ee") 
+> c(n, s) 
+[1] "2"  "3"  "5"  "aa" "bb" "cc" "dd" "ee"
+
+
+
+### Vector Arithmetics
+
+### Arithmetic operations of vectors are performed member-by-member, i.e., memberwise.
+
+### For example, suppose we have two vectors a and b.
+
+> a = c(1, 3, 5, 7) 
+> b = c(1, 2, 4, 8)
+
+## Then, if we multiply a by 5, we would get a vector with each of its members multiplied by 5.
+
+> 5 * a 
+[1]  5 15 25 35
+
+
+### And if we add a and b together, the sum would be a vector whose members are
+### the sum of the corresponding members from a and b.
+
+> a + b 
+[1]  2  5  9 15
+
+### Similarly for subtraction, multiplication and division, we get new vectors via memberwise operations.
+
+
+
+> a - b 
+[1]  0  1  1 -1 
+ 
+> a * b 
+[1]  1  6 20 56 
+ 
+> a / b 
+[1] 1.000 1.500 1.250 0.875
+
+
+#### Recycling Rule
+#### If two vectors are of unequal length, the shorter one will be recycled 
+###in order to match the longer vector. For example, the following vectors u and v
+### have different lengths, and their sum is computed by recycling values of the shorter vector u.
+
+> u = c(10, 20, 30) 
+> v = c(1, 2, 3, 4, 5, 6, 7, 8, 9) 
+> u + v 
+[1] 11 22 33 14 25 36 17 28 39
+
+
+#### Vector Index
+
+### We retrieve values in a vector by declaring an index inside a single square bracket "[]" operator.
+
+### For example, the following shows how to retrieve a vector member. 
+### Since the vector index is 1-based, we use the index position 3 for retrieving the third member.
+
+> s = c("aa", "bb", "cc", "dd", "ee") 
+> s[3] 
+[1] "cc"
+
+#### Negative Index
+### If the index is negative, it would strip the member whose position 
+### has the same absolute value as the negative index. For example, the following creates a 
+### vector slice with the third member removed.
+
+> s[-3] 
+[1] "aa" "bb" "dd" "ee"
+
+### Out-of-Range Index
+# If an index is out-of-range, a missing value will be reported via the symbol NA.
+
+> s[10] 
+[1] NA
+
+#### Numeric Index Vector
+
+### A new vector can be sliced from a given vector with a numeric index vector, 
+### which consists of member positions of the original vector to be retrieved.
+
+### Here it shows how to retrieve a vector slice containing the second and third members of a given vector s.
+
+> s = c("aa", "bb", "cc", "dd", "ee") 
+> s[c(2, 3)] 
+[1] "bb" "cc"
+
+
+#### Duplicate Indexes
+### The index vector allows duplicate values. Hence the following retrieves
+### a member twice in one operation.
+
+> s[c(2, 3, 3)] 
+[1] "bb" "cc" "cc"
+
+### Out-of-Order Indexes
+## The index vector can even be out-of-order. Here is a vector slice with the
+### order of first and second members reversed.
+
+> s[c(2, 1, 3)] 
+[1] "bb" "aa" "cc"
+
+### Range Index
+### To produce a vector slice between two indexes, we can use the colon operator ":". 
+### This can be convenient for situations involving large vectors.
+
+> s[2:4] 
+[1] "bb" "cc" "dd"
+
+#### Logical Index Vector
+
+#### A new vector can be sliced from a given vector with a logical index vector, 
+### which has the same length as the original vector. Its members are TRUE if the corresponding members
+### in the original vector are to be included in the slice, and FALSE if otherwise.
+
+### For example, consider the following vector s of length 5.
+
+> s = c("aa", "bb", "cc", "dd", "ee")
+
+## To retrieve the the second and fourth members of s, we define a logical vector
+## L of the same length, and have its second and fourth members set as TRUE.
+
+> L = c(FALSE, TRUE, FALSE, TRUE, FALSE) 
+> s[L] 
+[1] "bb" "dd"
+
+## The code can be abbreviated into a single line.
+
+> s[c(FALSE, TRUE, FALSE, TRUE, FALSE)] 
+[1] "bb" "dd"
+
+
+
+##### Named Vector Members
+
+#### We can assign names to vector members.
+
+### For example, the following variable v is a character string vector with two members.
+
+> v = c("Mary", "Sue") 
+> v 
+[1] "Mary" "Sue"
+
+### We now name the first member as First, and the second as Last.
+
+> names(v) = c("First", "Last") 
+> v 
+ First   Last 
+"Mary"  "Sue"
+
+### Then we can retrieve the first member by its name.
+
+> v["First"] 
+[1] "Mary"
+
+### Furthermore, we can reverse the order with a character string index vector.
+
+> v[c("Last", "First")] 
+  Last  First 
+ "Sue" "Mary"
+
+
+#### cHAPTER 3 MATRIX IN R
+
+### A matrix is a collection of data elements arranged in a two-dimensional rectangular layout.
+##  The following is an example of a matrix with 2 rows and 3 columns.
+
+> A = matrix( 
++   c(2, 4, 3, 1, 5, 7), # the data elements 
++   nrow=2,              # number of rows 
++   ncol=3,              # number of columns 
++   byrow = TRUE)        # fill matrix by rows 
+ 
+> A                      # print the matrix 
+     [,1] [,2] [,3] 
+[1,]    2    4    3 
+[2,]    1    5    7
+
+
+###An element at the mth row, nth column of A can be accessed by the expression A[m, n].
+
+> A[2, 3]      # element at 2nd row, 3rd column 
+[1] 7
+
+### The entire mth row A can be extracted as A[m, ].
+
+> A[2, ]       # the 2nd row 
+[1] 1 5 7
+
+## Similarly, the entire nth column A can be extracted as A[ ,n].
+
+> A[ ,3]       # the 3rd column 
+[1] 3 7
+
+## We can also extract more than one rows or columns at a time.
+
+> A[ ,c(1,3)]  # the 1st and 3rd columns 
+     [,1] [,2] 
+[1,]    2    3 
+[2,]    1    7
+
+### If we assign names to the rows and columns of the matrix, than we can access the elements by names.
+
+> dimnames(A) = list( 
++   c("row1", "row2"),         # row names 
++   c("col1", "col2", "col3")) # column names 
+ 
+> A                 # print A 
+     col1 col2 col3 
+row1    2    4    3 
+row2    1    5    7 
+ 
+> A["row2", "col3"] # element at 2nd row, 3rd column 
+[1] 7
+
